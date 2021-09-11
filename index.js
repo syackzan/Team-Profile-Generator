@@ -10,7 +10,7 @@ const writeToFile = require("./dist/writeToFile");
 
 
 function internQ(manager, engineerA, internA, filename, companyName){
-    console.log("Hello, please enter the Employee information below. We will start with your manager.")
+    console.log("Hello, please enter the following Intern Information.")
     inquirer
     .prompt([
         {
@@ -43,7 +43,6 @@ function internQ(manager, engineerA, internA, filename, companyName){
     .then((response) => {
         const intern = new Intern (response.name, response.id, response.email, response.school);
         internA.push(intern);
-        console.log(internA);
         if (response.anotherEmployee === 'Engineer'){
             engineerQ(manager, engineerA, internA, filename, companyName);
         } else if (response.anotherEmployee === 'Intern'){
@@ -56,7 +55,7 @@ function internQ(manager, engineerA, internA, filename, companyName){
 
 
 function engineerQ(manager, engineerA, internA, filename, companyName){
-    console.log("Hello, please enter the Employee information below. We will start with your manager.")
+    console.log("Hello, please enter the following Engineer Information.")
     inquirer
     .prompt([
         {
@@ -89,7 +88,6 @@ function engineerQ(manager, engineerA, internA, filename, companyName){
     .then((response) => {
         const engineer = new Engineer (response.name, response.id, response.email, response.github);
         engineerA.push(engineer);
-        console.log(engineerA);
         if (response.anotherEmployee === 'Engineer'){
             engineerQ(manager, engineerA, internA, filename, companyName);
         } else if (response.anotherEmployee === 'Intern'){
@@ -142,7 +140,6 @@ function init(){
         let internA = [];
         const companyName = response.companyName;
         const manager = new Manager (response.name, response.id, response.email, response.oNumber);
-        console.log(manager);
         if (response.anotherEmployee === 'Engineer'){
             engineerQ(manager, engineerA, internA, filename, companyName);
         } else if (response.anotherEmployee === 'Intern'){
