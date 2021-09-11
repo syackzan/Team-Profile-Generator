@@ -5,8 +5,10 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const internal = require("stream");
+let engineerA = [];
+let internA = [];
 
-function engineerQ(){
+function internQ(manager, engineerA, internA){
     console.log("Hello, please enter the Employee information below. We will start with your manager.")
     inquirer
     .prompt([
@@ -38,12 +40,14 @@ function engineerQ(){
         }
     ])
     .then((response) => {
-        const internOne = new Engineer (response.name, response.id, response.email, response.school);
-        console.log(internOne);
+        const intern = new Intern (response.name, response.id, response.email, response.school);
+        internA.push(intern);
+        console.log(internintern);
+        console.log(internA);
         if (response.anotherEmployee === 'Engineer'){
-            engineerQ();
+            engineerQ(manager, engineerA, internA);
         } else if (response.anotherEmployee === 'Intern'){
-            internQ();
+            internQ(manager, engineerA, internA);
         } else {
             return;
         }
@@ -51,7 +55,7 @@ function engineerQ(){
 }
 
 
-function engineerQ(){
+function engineerQ(manager, engineerA, internA){
     console.log("Hello, please enter the Employee information below. We will start with your manager.")
     inquirer
     .prompt([
@@ -83,12 +87,16 @@ function engineerQ(){
         }
     ])
     .then((response) => {
-        const engineerOne = new Engineer (response.name, response.id, response.email, response.github);
-        console.log(engineerOne);
+        const engineer = new Engineer (response.name, response.id, response.email, response.github);
+        engineerA.push(engineer);
+        console.log(engineer);
+        console.log(engineerA);
+        console.log(engineerA[0].name)
+        console.log(manager);
         if (response.anotherEmployee === 'Engineer'){
-            engineerQ();
+            engineerQ(manager, engineerA, internA);
         } else if (response.anotherEmployee === 'Intern'){
-            internQ();
+            internQ(manager, engineerA, internA);
         } else {
             return;
         }
@@ -133,14 +141,14 @@ function init(){
     ])
     .then((response) => {
         const filename = `${response.companyName}.html`
-        const managerOne = new Manager (response.name, response.id, response.email, response.oNumber);
-        console.log(managerOne);
+        const manager = new Manager (response.name, response.id, response.email, response.oNumber);
+        console.log(manager);
         if (response.anotherEmployee === 'Engineer'){
-            engineerQ();
+            engineerQ(manager);
         } else if (response.anotherEmployee === 'Intern'){
-            internQ();
+            internQ(manager);
         } else {
-            return;
+            writeToFile();
         }
     });
 }
