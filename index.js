@@ -5,8 +5,9 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const internal = require("stream");
-let engineerA = [];
-let internA = [];
+const writeToFile = require("./dist/writeToFile");
+
+
 
 function internQ(manager, engineerA, internA){
     console.log("Hello, please enter the Employee information below. We will start with your manager.")
@@ -41,8 +42,8 @@ function internQ(manager, engineerA, internA){
     ])
     .then((response) => {
         const intern = new Intern (response.name, response.id, response.email, response.school);
+        let internA = [];
         internA.push(intern);
-        console.log(internintern);
         console.log(internA);
         if (response.anotherEmployee === 'Engineer'){
             engineerQ(manager, engineerA, internA);
@@ -88,11 +89,9 @@ function engineerQ(manager, engineerA, internA){
     ])
     .then((response) => {
         const engineer = new Engineer (response.name, response.id, response.email, response.github);
+        let engineerA = [];
         engineerA.push(engineer);
-        console.log(engineer);
         console.log(engineerA);
-        console.log(engineerA[0].name)
-        console.log(manager);
         if (response.anotherEmployee === 'Engineer'){
             engineerQ(manager, engineerA, internA);
         } else if (response.anotherEmployee === 'Intern'){
