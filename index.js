@@ -148,7 +148,7 @@ function init(){
         } else if (response.anotherEmployee === 'Intern'){
             internQ(manager);
         } else {
-            writeToFile();
+            writeToFile(filename, manager, engineerA, internA, response);
         }
     });
 }
