@@ -9,7 +9,7 @@ const writeToFile = require("./dist/writeToFile");
 
 
 
-function internQ(manager, engineerA, internA){
+function internQ(manager, engineerA, internA, filename, companyName){
     console.log("Hello, please enter the Employee information below. We will start with your manager.")
     inquirer
     .prompt([
@@ -42,21 +42,20 @@ function internQ(manager, engineerA, internA){
     ])
     .then((response) => {
         const intern = new Intern (response.name, response.id, response.email, response.school);
-        let internA = [];
         internA.push(intern);
         console.log(internA);
         if (response.anotherEmployee === 'Engineer'){
-            engineerQ(manager, engineerA, internA);
+            engineerQ(manager, engineerA, internA, filename, companyName);
         } else if (response.anotherEmployee === 'Intern'){
-            internQ(manager, engineerA, internA);
+            internQ(manager, engineerA, internA, filename, companyName);
         } else {
-            return;
+            writeToFile(manager, engineerA, internA, filename, companyName);
         }
     });
 }
 
 
-function engineerQ(manager, engineerA, internA){
+function engineerQ(manager, engineerA, internA, filename, companyName){
     console.log("Hello, please enter the Employee information below. We will start with your manager.")
     inquirer
     .prompt([
@@ -89,15 +88,14 @@ function engineerQ(manager, engineerA, internA){
     ])
     .then((response) => {
         const engineer = new Engineer (response.name, response.id, response.email, response.github);
-        let engineerA = [];
         engineerA.push(engineer);
         console.log(engineerA);
         if (response.anotherEmployee === 'Engineer'){
-            engineerQ(manager, engineerA, internA);
+            engineerQ(manager, engineerA, internA, filename, companyName);
         } else if (response.anotherEmployee === 'Intern'){
-            internQ(manager, engineerA, internA);
+            internQ(manager, engineerA, internA, filename, companyName);
         } else {
-            return;
+            writeToFile(manager, engineerA, internA, filename, companyName);
         }
     });
 }
@@ -139,15 +137,18 @@ function init(){
         }
     ])
     .then((response) => {
-        const filename = `${response.companyName}.html`
+        const filename = `${response.companyName}.html`;
+        let engineerA = [];
+        let internA = [];
+        const companyName = response.companyName;
         const manager = new Manager (response.name, response.id, response.email, response.oNumber);
         console.log(manager);
         if (response.anotherEmployee === 'Engineer'){
-            engineerQ(manager);
+            engineerQ(manager, engineerA, internA, filename, companyName);
         } else if (response.anotherEmployee === 'Intern'){
-            internQ(manager);
+            internQ(manager, engineerA, internA, filename, companyName);
         } else {
-            writeToFile(filename, manager, engineerA, internA, response);
+            writeToFile(manager, engineerA, internA, filename, companyName);
         }
     });
 }
