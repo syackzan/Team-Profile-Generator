@@ -57,6 +57,8 @@ index.js			// runs the application
 
 GitHub Account for Syackzan: https://github.com/syackzan
 
+GitHub Team-Profile-Generator Repository: https://github.com/syackzan/Team-Profile-Generator
+
 Link to Demonstration Youtube Video: https://youtu.be/KaOJYunXeBo
 
 ## Photo Of Example HTML Generated
